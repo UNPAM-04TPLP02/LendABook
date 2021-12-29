@@ -3,6 +3,7 @@ import javax.swing.UIManager;
 import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
 import Database.*;
+import UI.*;
 
 public class Main extends javax.swing.JFrame {
 
@@ -168,15 +169,14 @@ public class Main extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         UpdateDB.getDB();
-         // Initialize Flatlaf Theme 
+        
         java.awt.EventQueue.invokeLater(() -> {
-            
+            // Initialize Flatlaf Theme 
             try {
                 UIManager.setLookAndFeel( new FlatDarkLaf() );
             } catch( UnsupportedLookAndFeelException ex ) {
                 System.err.println( "Failed to initialize LaF" );
             }
-            // jFrame1("frame2").setVisible(true);
             new Main().setVisible(true);
         });
     }
