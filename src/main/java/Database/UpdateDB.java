@@ -13,13 +13,13 @@ public class UpdateDB {
     private static Statement stmt;
     private static ResultSet rs;
     public DefaultTableModel dtm;
-
+    
     public static void getDB() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select * from book_table");
+            rs = stmt.executeQuery("SELECT * FROM book_table");
             System.out.println(rs);
             while (rs.next())
                 System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
@@ -44,8 +44,16 @@ public class UpdateDB {
     }
     
     // Menaruh kembali buku ke database
-    public static void retreiveBook() {
-        
+    public static void retreiveBook(int book_id, int qty) throws SQLException {
+        con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
+        stmt = con.createStatement();
+        try {
+            stmt.executeUpdate("UPDATE book_table SET qty =+ " + Integer.toString(qty)
+                + "WHERE book_id = " + Integer.toString(book_id) + ";");
+                JOptionPane.showMessageDialog(null, "Berhasil menyimpan data");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
+        }
     }
     
     // Mengambil buku dari database dengan mengurangi nilai qty
