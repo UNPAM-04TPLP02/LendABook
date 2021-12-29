@@ -1,13 +1,8 @@
 package UI;
-
-import com.formdev.flatlaf.FlatDarkLaf;
-import javax.swing.UIManager;
-import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
 import Database.*;
-import UI.*;
 
-public class LoginUI extends javax.swing.JFrame {
+public class LoginUI extends javax.swing.JInternalFrame {
 
     public LoginUI() {
         initComponents();
@@ -169,19 +164,6 @@ public class LoginUI extends javax.swing.JFrame {
        
     }//GEN-LAST:event_createAccActionPerformed
 
-    public static void main(String args[]) {
-        UpdateDB.getDB();
-        
-        java.awt.EventQueue.invokeLater(() -> {
-            // Initialize Flatlaf Theme 
-            try {
-                UIManager.setLookAndFeel( new FlatDarkLaf() );
-            } catch( UnsupportedLookAndFeelException ex ) {
-                System.err.println( "Failed to initialize LaF" );
-            }
-            new LoginUI().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createAcc;
@@ -197,4 +179,8 @@ public class LoginUI extends javax.swing.JFrame {
     private javax.swing.JTextField usrnameInput;
     private javax.swing.JLabel usrnameLabel;
     // End of variables declaration//GEN-END:variables
+
+    public void backBtnActionPerformed() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
