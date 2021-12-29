@@ -164,7 +164,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void createAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccActionPerformed
-        UpdateDB.addAccount();
+       
     }//GEN-LAST:event_createAccActionPerformed
 
     public static void main(String args[]) {
