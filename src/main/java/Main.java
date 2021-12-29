@@ -4,7 +4,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import Database.*;
 import UI.*;
 
-public class Main extends javax.swing.JFrame {
+public class Main extends javax.swing.JPanel {
 
     public Main() {
         initComponents();
@@ -31,7 +31,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        UpdateDB.getDB();
+        DB.getDB();
         
         java.awt.EventQueue.invokeLater(() -> {
             // Initialize Flatlaf Theme 
@@ -40,7 +40,11 @@ public class Main extends javax.swing.JFrame {
             } catch( UnsupportedLookAndFeelException ex ) {
                 System.err.println( "Failed to initialize Laf" );
             }
-            new LoginUI().setVisible(true);
+            
+            //LoginUI login = new LoginUI();
+            PinjamUI pinjam = new PinjamUI();
+            //login.setVisible(true);
+            pinjam.setVisible(true);
         });
     }
 

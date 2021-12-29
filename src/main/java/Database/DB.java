@@ -5,7 +5,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class UpdateDB {
+public class DB {
     /*
         Ini adalah class untuk mengatur database
     */
