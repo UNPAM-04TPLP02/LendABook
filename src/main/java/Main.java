@@ -2,7 +2,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.UIManager;
 import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
-import java.sql.*; 
+import Database.*;
 
 public class Main extends javax.swing.JFrame {
 
@@ -163,10 +163,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void createAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccActionPerformed
-
+        UpdateDB.addAccount();
     }//GEN-LAST:event_createAccActionPerformed
 
     public static void main(String args[]) {
+        UpdateDB.getDB();
          // Initialize Flatlaf Theme 
         java.awt.EventQueue.invokeLater(() -> {
             
