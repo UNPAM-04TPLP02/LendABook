@@ -9,7 +9,7 @@ Adalah sebuah program yang di desain untuk memudahkan pengelola perpustakaan dal
 - Flatlaf 2.0-rc1
 - Mysql connector 8.0.24
 
-## Contributor
+## Contributors
 - Bima Arya Wicaksana
 - Alvin Septiano
 - Fahruji
