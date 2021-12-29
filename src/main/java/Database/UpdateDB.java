@@ -60,4 +60,18 @@ public class UpdateDB {
     public static void lendBook() {
         
     }
+    
+    // Mengembalikan jumlah buku dari database berdasarkan judul buku
+    public static int getBookQty(int book_id) throws SQLException {
+        int qty;
+        con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
+        try (Statement statement = con.createStatement()) {
+            ResultSet result = statement.executeQuery("SELECT qty FROM book_table WHERE = " + book_id);
+            qty = result.getInt("qtd");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
+            qty = 0;
+        }
+        return qty;
+    }
 }
