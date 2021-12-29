@@ -2,14 +2,14 @@ CREATE TABLE user_account (
 	id int not null AUTO_INCREMENT,
 	username varchar(255) not null,
 	password varchar(255) not null,
-	book_id int not null,
+	book_id int,
 	qty int,
 	PRIMARY KEY (id),
     FOREIGN KEY (book_id) REFERENCES book_table(book_id)
 	);
 
 CREATE TABLE book_table (
-	book_id int not null,
+	book_id int not null AUTO_INCREMENT,
 	judul_buku varchar(255) not null,
 	penulis varchar(255) not null,
 	penerbit varchar(255) not null,
