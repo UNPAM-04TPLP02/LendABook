@@ -44,7 +44,7 @@ public class UpdateDB {
     }
     
     // Menaruh kembali buku ke database
-    public static void retreiveBook(int book_id, int qty) throws SQLException {
+    public static void retrieveBook(int book_id, int qty) throws SQLException {
         con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
         stmt = con.createStatement();
         try {
