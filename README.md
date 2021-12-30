@@ -4,7 +4,7 @@
 Adalah sebuah program yang di desain untuk memudahkan pengelola perpustakaan dalam mengatur buku.
 
 ## Dependencies
-- Java 11
+- Java 8
 - Maven 3.6.3
 - Flatlaf 2.0-rc1
 - Mysql connector 8.0.24
