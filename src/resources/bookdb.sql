@@ -1,3 +1,6 @@
+CREATE DATABASE book_db; 
+USE book_db;
+
 CREATE TABLE user_account (
 	id int not null AUTO_INCREMENT,
 	username varchar(255) not null,
