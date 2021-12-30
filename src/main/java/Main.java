@@ -30,11 +30,7 @@ public class Main extends javax.swing.JPanel {
         
         java.awt.EventQueue.invokeLater(() -> {
             // Initialize Flatlaf Theme 
-            try {
-                UIManager.setLookAndFeel( new FlatDarkLaf() );
-            } catch( UnsupportedLookAndFeelException ex ) {
-                System.err.println( "Failed to initialize Laf" );
-            }
+            FlatDarkLaf.setup();
             
             //LoginUI login = new LoginUI();
             PinjamUI pinjam = new PinjamUI();
