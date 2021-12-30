@@ -4,14 +4,11 @@
 Lend a Book adalah sebuah program yang di desain untuk memudahkan pengelola perpustakaan dalam mengatur buku.
 ## Getting started
 ### Inisialisasi Database
-Di dalam root project jalankan perintah berikut di dalam terminal anda <br> <br>
+Di dalam root project jalankan perintah berikut di dalam terminal anda Kemudian eksekusi scriptnya
+<br> <br>
 Disini menggunakan root user
 ```zsh
-mysql -u root
-```
-Kemudian eksekusi scriptnya
-```zsh
-source src/resources/bookdb.sql
+mysql -u root < src/resources/bookdb.sql
 ```
 ### Dependencies
 - Java 8
