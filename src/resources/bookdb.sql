@@ -1,16 +1,6 @@
 CREATE DATABASE book_db; 
 USE book_db;
 
-CREATE TABLE user_account (
-	id int not null AUTO_INCREMENT,
-	username varchar(255) not null,
-	password varchar(255) not null,
-	book_id int,
-	qty int,
-	PRIMARY KEY (id),
-    FOREIGN KEY (book_id) REFERENCES book_table(book_id)
-	);
-
 CREATE TABLE book_table (
 	book_id int not null AUTO_INCREMENT,
 	judul_buku varchar(255) not null,
@@ -20,6 +10,16 @@ CREATE TABLE book_table (
 	kategori varchar(255),
 	qty int,
 	PRIMARY KEY (book_id)
+	);
+
+CREATE TABLE user_account (
+	id int not null AUTO_INCREMENT,
+	username varchar(255) not null,
+	password varchar(255) not null,
+	book_id int,
+	qty int,
+	PRIMARY KEY (id),
+    FOREIGN KEY (book_id) REFERENCES book_table(book_id)
 	);
 
 INSERT INTO book_table (book_id , judul_buku , penulis , penerbit, tahun, qty) VALUES
