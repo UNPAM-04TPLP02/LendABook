@@ -1,10 +1,7 @@
 import com.formdev.flatlaf.FlatDarkLaf;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import Database.*;
 import UI.*;
 
-public class Main extends javax.swing.JPanel {
+public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
     }
@@ -13,32 +10,53 @@ public class Main extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        Tab = new javax.swing.JTabbedPane();
+
+        setTitle("Lend A Book");
+
+        Tab.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Tab, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Tab, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]) {
-        DB.getDB();
-        
+        FlatDarkLaf.setup(); //Dark Theme
+        // Inisialisasi komponen
+        Main frame = new Main();
+        LoginUI login = new LoginUI();
+        PinjamUI pinjam = new PinjamUI();
+        EditUI editui = new EditUI();
+           
+        frame.pack();
+        frame.Tab.addTab("Pinjam Buku", pinjam);
+        frame.Tab.addTab("Edit Buku", editui);
+        // framesetContentPane(pinjam);
+        frame.setSize(800, 500);
+        frame.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
+        // frame.setExtendedState(Main.MAXIMIZED_BOTH); // Buat seluruh program fullscreen
+
         java.awt.EventQueue.invokeLater(() -> {
-            // Initialize Flatlaf Theme 
-            FlatDarkLaf.setup();
-            
-            //LoginUI login = new LoginUI();
-            PinjamUI pinjam = new PinjamUI();
-            //login.setVisible(true);
-            pinjam.setVisible(true);
+            frame.setVisible(true);
         });
+            
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane Tab;
     // End of variables declaration//GEN-END:variables
 }

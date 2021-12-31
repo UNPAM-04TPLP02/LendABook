@@ -2,8 +2,10 @@ package Database;
 
 import java.awt.HeadlessException;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class DB {
     /*
@@ -14,19 +16,29 @@ public class DB {
     private static ResultSet rs;
     public DefaultTableModel dtm;
     
-    public static void getDB() {
+    public static List getDB() throws SQLException {
+        Array listBuku = null;
+        String buku;
+        int i = 0;
+        List<String> list = new ArrayList<>();  
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT * FROM book_table");
-            System.out.println(rs);
-            while (rs.next())
-                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-            
+
+            while (rs.next()) {
+                list.add(rs.getString("judul_buku"));
+                //listBuku[i] = rs.getArray(1);
+                i += 1;
+                //rs.getArray(1);
+            }
+
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e);
+            System.out.println("Error");
         }
+        return list;
     }
     
     public void addAccount(String username, String password) throws SQLException {
@@ -60,7 +72,7 @@ public class DB {
     public static void lendBook() {
         
     }
-    
+
     // Mengembalikan jumlah buku dari database berdasarkan judul buku
     public static int getBookQty(int book_id) throws SQLException {
         int qty;
@@ -68,7 +80,8 @@ public class DB {
         try (Statement statement = con.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT qty FROM book_table WHERE = " + book_id);
             qty = result.getInt("qtd");
-        } catch (SQLException e) {
+        } catch (SQLException e) { 
+            // Mengembalikan nilai qty 0 jika terjadi error
             JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
             qty = 0;
         }
