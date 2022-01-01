@@ -41,7 +41,7 @@ public class DB {
         return list;
     }
     
-    public void addAccount(String username, String password) throws SQLException {
+    public static void addAccount(String username, String password) throws SQLException {
         con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
         stmt = con.createStatement();
         stmt.executeQuery("INSERT INTO user_account ()");

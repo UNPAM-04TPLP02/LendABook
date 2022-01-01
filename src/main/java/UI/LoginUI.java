@@ -1,5 +1,10 @@
 package UI;
 
+import Database.DB;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class LoginUI extends javax.swing.JPanel {
     public LoginUI() {
@@ -20,8 +25,6 @@ public class LoginUI extends javax.swing.JPanel {
         createAcc = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-
-        setBorder(new javax.swing.border.MatteBorder(null));
 
         passwdInput.setText("jPasswordField1");
 
@@ -81,7 +84,7 @@ public class LoginUI extends javax.swing.JPanel {
                                 .addComponent(loginBtn)
                                 .addGap(18, 18, 18)
                                 .addComponent(createAcc)))
-                        .addContainerGap(52, Short.MAX_VALUE))
+                        .addContainerGap(54, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usrnameLabel)
@@ -120,7 +123,7 @@ public class LoginUI extends javax.swing.JPanel {
                     .addComponent(loginBtn)
                     .addComponent(exitBtn)
                     .addComponent(createAcc))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -129,15 +132,20 @@ public class LoginUI extends javax.swing.JPanel {
     }//GEN-LAST:event_exitBtnActionPerformed
 
     private void usrnameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrnameInputActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_usrnameInputActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void createAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccActionPerformed
-
+        try {
+            DB.addAccount(usrnameInput.getText(), passwdInput.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_createAccActionPerformed
 
 
