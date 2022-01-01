@@ -1,6 +1,6 @@
 package UI;
 
-import Database.DB;
+import Database.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +25,6 @@ public class LoginUI extends javax.swing.JPanel {
         createAcc = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-
-        passwdInput.setText("jPasswordField1");
 
         exitBtn.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
         exitBtn.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
@@ -84,22 +82,18 @@ public class LoginUI extends javax.swing.JPanel {
                                 .addComponent(loginBtn)
                                 .addGap(18, 18, 18)
                                 .addComponent(createAcc)))
-                        .addContainerGap(54, Short.MAX_VALUE))
+                        .addContainerGap(97, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usrnameLabel)
                             .addComponent(pswdLabel)
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(usrnameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(passwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(usrnameInput, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(passwdInput))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +117,7 @@ public class LoginUI extends javax.swing.JPanel {
                     .addComponent(loginBtn)
                     .addComponent(exitBtn)
                     .addComponent(createAcc))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,12 +130,16 @@ public class LoginUI extends javax.swing.JPanel {
     }//GEN-LAST:event_usrnameInputActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        //
+        try {
+            DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void createAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccActionPerformed
         try {
-            DB.addAccount(usrnameInput.getText(), passwdInput.getText());
+            DB.User.addAccount(usrnameInput.getText(), passwdInput.getText());
         } catch (SQLException ex) {
             Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
         }
