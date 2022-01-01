@@ -19,7 +19,7 @@ public class DB {
             con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
             stmt = con.createStatement();
             if (!"".equals(username) && !"".equals(password))
-                if (checkUserAvailablity(username) == true)
+                if (checkUserAvailablity(username) != true)
                     try {
                         stmt.executeUpdate("INSERT INTO user_account (username, password) VALUES ("
                             + "'" + username + "',"
@@ -34,8 +34,24 @@ public class DB {
                 JOptionPane.showMessageDialog(null, "Semua field harus diisi");
         }
         
-         public static void loginAccount(String username, String password) throws SQLException {
-        
+        public static void loginAccount(String username, String password) throws SQLException {
+            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
+            stmt = con.createStatement();
+                
+            if (!"".equals(username) && !"".equals(password)) {
+                if (checkUserAvailablity(username) == true)
+                    try {
+                        if(username.equals(rs.getString("username")) && password.equals(rs.getString("password")))
+                            JOptionPane.showMessageDialog(null, "Berhasil login");
+                        else
+                            JOptionPane.showMessageDialog(null, "Password salah");
+                    } catch (HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, "Password salah");
+                    }
+                else
+                    JOptionPane.showMessageDialog(null, "Username tidak ada");
+            } else
+                JOptionPane.showMessageDialog(null, "Semua field harus diisi");
         }
          
         public static boolean checkUserAvailablity(String userName) throws SQLException {
@@ -48,10 +64,10 @@ public class DB {
                 list.add(rs.getString("username"));
                 if (list.contains(userName)) {
                     System.out.println("Berhasil");
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
     }
     
@@ -72,23 +88,22 @@ public class DB {
 
         }
         
-        public int getBookQty(int book_id) throws SQLException {
+        public static int getBookQty(int book_id) throws SQLException {
             // Mengembalikan jumlah buku dari database berdasarkan judul buku
             int qty;
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
             try (Statement statement = con.createStatement()) {
-                ResultSet result = statement.executeQuery("SELECT qty FROM book_table WHERE = " + book_id);
-                qty = result.getInt("qtd");
+                ResultSet result = statement.executeQuery("SELECT qty FROM book_table WHERE book_id = " + book_id);
+                qty = result.getInt("qty");
             } catch (SQLException e) { 
                 // Mengembalikan nilai qty 0 jika terjadi error
-                JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
+                JOptionPane.showMessageDialog(null, "Perintah Salah: " + e);
                 qty = 0;
             }
             return qty;
         }
         
         public boolean checkBookAvailablity(String judulBuku) throws SQLException {
-            //stmt = con.createStatement();
             List<String> list;
             list = new ArrayList<>();
 
@@ -111,7 +126,7 @@ public class DB {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/book_db", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT * FROM book_table");
 
