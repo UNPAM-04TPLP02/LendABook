@@ -42,22 +42,22 @@ public class Main extends javax.swing.JFrame {
     public static void main(String args[]) {
         FlatDarkLaf.setup(); //Dark Theme
         // Inisialisasi komponen
-        Main frame = new Main();
+        Main mainFrame = new Main();
         LoginUI login = new LoginUI();
         PinjamUI pinjam = new PinjamUI();
         EditUI editui = new EditUI();
 
-        frame.setContentPane(login);
-        frame.pack();
-        frame.Tab.addTab("Pinjam Buku", pinjam);
-        frame.Tab.addTab("Edit Buku", editui);
-        frame.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
-        frame.setExtendedState(Main.MAXIMIZED_BOTH); // Buat seluruh program fullscreen
+        mainFrame.setContentPane(login);
+        mainFrame.pack();
+        mainFrame.Tab.addTab("Pinjam Buku", pinjam);
+        mainFrame.Tab.addTab("Edit Buku", editui);
+        mainFrame.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
+        mainFrame.setExtendedState(Main.MAXIMIZED_BOTH); // Buat seluruh program fullscreen
         
         java.awt.EventQueue.invokeLater(() -> {
             //login.setVisible(true);
-            //login.addComponentListener((ComponentListener) frame);
-            frame.setVisible(true);  
+            //login.addComponentListener((ComponentListener) mainFrame);
+            mainFrame.setVisible(true);  
         });
             
     }
