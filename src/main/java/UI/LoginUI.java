@@ -191,7 +191,7 @@ public class LoginUI extends javax.swing.JFrame {
         //pinjamUI.refreshBooks();
     }
     
-    public void setEditWindow(Component frame) {
+    public static void setEditWindow(Component frame) {
         editUI = (PinjamUI) frame;
     }
 

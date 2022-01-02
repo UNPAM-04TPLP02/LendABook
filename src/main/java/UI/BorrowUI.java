@@ -1,17 +1,15 @@
 package UI;
 
-import Database.*;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import Database.*;
 
-public class PinjamUI extends javax.swing.JPanel {
+public class BorrowUI extends javax.swing.JFrame {
+    
     static List listBuku = null;
     static DefaultListModel<String> model;
-    
-    public PinjamUI() {
+    public BorrowUI() {
         initComponents();
     }
 
@@ -32,6 +30,8 @@ public class PinjamUI extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList<>();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         accBtn.setText("Lanjut");
 
@@ -80,14 +80,14 @@ public class PinjamUI extends javax.swing.JPanel {
 
         jSplitPane2.setLeftComponent(jPanel3);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                    .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -116,18 +116,16 @@ public class PinjamUI extends javax.swing.JPanel {
                     .addComponent(accBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
-        
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        getRefreshBooks();
+        
     }//GEN-LAST:event_backBtnActionPerformed
 
-    public void getRefreshBooks() {
-        try {
-            listBuku = DB.getDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(PinjamUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void getRefreshBooks() throws SQLException {
+        listBuku = DB.getDB();
         model = new DefaultListModel<>(); 
         
         for(Object books : listBuku) {
@@ -136,7 +134,11 @@ public class PinjamUI extends javax.swing.JPanel {
         }
         availableList.setModel(model);
     }
-
+    
+    public static void main(String args[]) {
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accBtn;
     private javax.swing.JList<String> availableList;

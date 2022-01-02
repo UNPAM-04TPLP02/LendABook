@@ -37,20 +37,19 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]) {
+        
         FlatDarkLaf.setup(); //Dark Theme
         Main borrowWindow = new Main();
-        PinjamUI pinjam = new PinjamUI();
+        BorrowUI borrow = new BorrowUI();
         EditUI editui = new EditUI();
         LoginUI login = new LoginUI();
-        
-        borrowWindow.Tab.addTab("Pinjam Buku", pinjam);
-        borrowWindow.Tab.addTab("Edit Buku", editui);
         
         borrowWindow.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
         borrowWindow.setExtendedState(Main.MAXIMIZED_BOTH);
 
         java.awt.EventQueue.invokeLater(() -> {
-            login.setBorrowWindow(borrowWindow);
+            login.setBorrowWindow(borrow);
+            login.setEditWindow(editui);
             login.setVisible(true);
         });
     }
