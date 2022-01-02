@@ -36,8 +36,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]) {
-         //Dark Theme
-        FlatDarkLaf.setup();
+        FlatDarkLaf.setup(); //Dark Theme
         Main borrowWindow = new Main();
         PinjamUI pinjam = new PinjamUI();
         EditUI editui = new EditUI();
