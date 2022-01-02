@@ -16,6 +16,7 @@ CREATE TABLE user_account (
 	id int not null AUTO_INCREMENT,
 	username varchar(255) not null,
 	password varchar(255) not null,
+	role varchar(255) not null,
 	book_id int,
 	qty int,
 	PRIMARY KEY (id),
