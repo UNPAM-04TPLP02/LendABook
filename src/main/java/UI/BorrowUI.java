@@ -69,11 +69,6 @@ public class BorrowUI extends javax.swing.JFrame {
         jLabel5.setText("Buku yang ingin dipinjam");
         jPanel3.add(jLabel5);
 
-        lendList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane6.setViewportView(lendList);
 
         jPanel3.add(jScrollPane6);
@@ -125,7 +120,7 @@ public class BorrowUI extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     public void getRefreshBooks() throws SQLException {
-        listBuku = DB.getDB();
+        //listBuku = DB.getDB();
         model = new DefaultListModel<>(); 
         
         for(Object books : listBuku) {
