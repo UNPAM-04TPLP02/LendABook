@@ -17,7 +17,7 @@ public class BorrowUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        accBtn = new javax.swing.JButton();
+        pinjamBtn = new javax.swing.JButton();
         searchBtn = new javax.swing.JButton();
         searchTextField = new javax.swing.JTextField();
         backBtn = new javax.swing.JButton();
@@ -33,7 +33,7 @@ public class BorrowUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        accBtn.setText("Lanjut");
+        pinjamBtn.setText("Pinjam");
 
         searchBtn.setText("Cari Buku");
 
@@ -92,7 +92,7 @@ public class BorrowUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(accBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(pinjamBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -108,7 +108,7 @@ public class BorrowUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(accBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pinjamBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -131,7 +131,6 @@ public class BorrowUI extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton accBtn;
     private javax.swing.JList<String> availableList;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel jLabel3;
@@ -142,6 +141,7 @@ public class BorrowUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JList<String> lendList;
+    private javax.swing.JButton pinjamBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables

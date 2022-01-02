@@ -21,7 +21,7 @@ public class DB {
             if (!"".equals(username) && !"".equals(password))
                 if (checkUserAvailablity(username) != true)
                     try {
-                        stmt.executeUpdate("INSERT INTO user_account (username, password) VALUES ("
+                        stmt.executeUpdate("INSERT INTO user_account (username, password, role) VALUES ("
                             + "'" + username + "',"
                             + "'" + password + "',"
                             + "'" + role + "')");
