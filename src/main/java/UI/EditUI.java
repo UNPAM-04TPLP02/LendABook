@@ -92,6 +92,11 @@ public class EditUI extends javax.swing.JFrame {
         buttons.add(filler1, new java.awt.GridBagConstraints());
 
         jenisTabel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tabel Buku", "Tabel User" }));
+        jenisTabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jenisTabelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dbTabLayout = new javax.swing.GroupLayout(dbTab);
         dbTab.setLayout(dbTabLayout);
@@ -307,6 +312,10 @@ public class EditUI extends javax.swing.JFrame {
     private void tahunTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tahunTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tahunTFActionPerformed
+
+    private void jenisTabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisTabelActionPerformed
+        System.out.println("Switched");
+    }//GEN-LAST:event_jenisTabelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
