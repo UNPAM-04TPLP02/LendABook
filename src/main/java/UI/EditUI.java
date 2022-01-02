@@ -32,10 +32,10 @@ public class EditUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         buttons = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        delBtn = new javax.swing.JButton();
+        exitBtn = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         jenisTabel = new javax.swing.JComboBox<>();
         buttons1 = new javax.swing.JPanel();
@@ -65,28 +65,28 @@ public class EditUI extends javax.swing.JFrame {
 
         buttons.setLayout(new java.awt.GridBagLayout());
 
-        jButton6.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
-        jButton6.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
-        jButton6.setText("Add");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        addBtn.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
-        buttons.add(jButton6, new java.awt.GridBagConstraints());
+        buttons.add(addBtn, new java.awt.GridBagConstraints());
 
-        jButton7.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
-        jButton7.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
-        jButton7.setText("Update");
-        buttons.add(jButton7, new java.awt.GridBagConstraints());
+        updateBtn.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Yellow"));
+        updateBtn.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        updateBtn.setText("Update");
+        buttons.add(updateBtn, new java.awt.GridBagConstraints());
 
-        jButton8.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
-        jButton8.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
-        jButton8.setText("Delete");
-        buttons.add(jButton8, new java.awt.GridBagConstraints());
+        delBtn.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        delBtn.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        delBtn.setText("Delete");
+        buttons.add(delBtn, new java.awt.GridBagConstraints());
 
-        jButton5.setText("Back");
-        buttons.add(jButton5, new java.awt.GridBagConstraints());
+        exitBtn.setText("Exit");
+        buttons.add(exitBtn, new java.awt.GridBagConstraints());
         buttons.add(filler1, new java.awt.GridBagConstraints());
 
         jenisTabel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tabel Buku", "Tabel User" }));
@@ -182,74 +182,44 @@ public class EditUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    public void refreshList() {
+        
+    }
+    
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_addBtnActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
     private javax.swing.JPanel buttons;
     private javax.swing.JPanel buttons1;
     private javax.swing.JPanel dbTab;
+    private javax.swing.JButton delBtn;
+    private javax.swing.JButton exitBtn;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
     private javax.swing.JComboBox<String> jenisTabel;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }
