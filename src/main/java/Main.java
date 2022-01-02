@@ -33,9 +33,8 @@ public class Main extends javax.swing.JFrame {
         LoginUI login = new LoginUI();
         EditUI editui = new EditUI();
         BorrowUI borrow = new BorrowUI();
-        
-        editui.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
-        //borrowWindow.setExtendedState(Main.MAXIMIZED_BOTH);
+        login.setDefaultCloseOperation(LoginUI.EXIT_ON_CLOSE);
+        editui.setDefaultCloseOperation(EditUI.EXIT_ON_CLOSE);
 
         java.awt.EventQueue.invokeLater(() -> {
             login.setBorrowWindow(borrow);
