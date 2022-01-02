@@ -12,40 +12,30 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Tab = new javax.swing.JTabbedPane();
-
         setTitle("Lend A Book");
-
-        Tab.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Tab, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 480, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Tab, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 361, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]) {
         
         FlatDarkLaf.setup(); //Dark Theme
-        Main borrowWindow = new Main();
-        BorrowUI borrow = new BorrowUI();
-        EditUI editui = new EditUI();
+        //Main borrowWindow = new Main();
         LoginUI login = new LoginUI();
+        EditUI editui = new EditUI();
+        BorrowUI borrow = new BorrowUI();
         
-        borrowWindow.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
-        borrowWindow.setExtendedState(Main.MAXIMIZED_BOTH);
+        editui.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
+        //borrowWindow.setExtendedState(Main.MAXIMIZED_BOTH);
 
         java.awt.EventQueue.invokeLater(() -> {
             login.setBorrowWindow(borrow);
@@ -55,6 +45,5 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane Tab;
     // End of variables declaration//GEN-END:variables
 }

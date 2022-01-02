@@ -15,7 +15,7 @@ public class DB {
     public DefaultTableModel dtm;
     
     public static class User {
-        public static void addAccount(String username, String password) throws SQLException {
+        public static void addAccount(String username, String password, String role) throws SQLException {
             con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
             stmt = con.createStatement();
             if (!"".equals(username) && !"".equals(password))
@@ -23,7 +23,8 @@ public class DB {
                     try {
                         stmt.executeUpdate("INSERT INTO user_account (username, password) VALUES ("
                             + "'" + username + "',"
-                            + "'" + password + "')");
+                            + "'" + password + "',"
+                            + "'" + role + "')");
                             JOptionPane.showMessageDialog(null, "Berhasil menyimpan data");
                     } catch (HeadlessException e) {
                         JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
@@ -34,24 +35,31 @@ public class DB {
                 JOptionPane.showMessageDialog(null, "Semua field harus diisi");
         }
         
-        public static void loginAccount(String username, String password) throws SQLException {
+        public static boolean loginAccount(String username, String password, String role) throws SQLException {
             con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
             stmt = con.createStatement();
-                
+            rs = stmt.executeQuery("SELECT * FROM user_account");
             if (!"".equals(username) && !"".equals(password)) {
                 if (checkUserAvailablity(username) == true)
                     try {
-                        if(username.equals(rs.getString("username")) && password.equals(rs.getString("password")))
+                        if (username.equals(rs.getString("username")) 
+                                && password.equals(rs.getString("password")) 
+                                && role.equals(rs.getString("role"))) {
                             JOptionPane.showMessageDialog(null, "Berhasil login");
-                        else
+                            return true;
+                        } else {
                             JOptionPane.showMessageDialog(null, "Password salah");
+                            return false;
+                        }
                     } catch (HeadlessException e) {
                         JOptionPane.showMessageDialog(null, "Password salah");
                     }
                 else
                     JOptionPane.showMessageDialog(null, "Username tidak ada");
+                return false;
             } else
                 JOptionPane.showMessageDialog(null, "Semua field harus diisi");
+            return false;
         }
          
         public static boolean checkUserAvailablity(String userName) throws SQLException {

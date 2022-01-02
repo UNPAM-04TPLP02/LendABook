@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class LoginUI extends javax.swing.JFrame {
 
-    public static Component pinjamUI;
+    public static Component borrowUI;
     public static Component editUI;
     
     public LoginUI() {
@@ -74,51 +74,51 @@ public class LoginUI extends javax.swing.JFrame {
 
         jLabel1.setText("Role");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\SEMESTER 4\\PEMROGRAMAN 1\\netbeans\\uas\\LendABook\\src\\resources\\Logov1x300.png")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(usrnameLabel)
-                        .addGap(280, 280, 280))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pswdLabel)
-                                    .addComponent(exitBtn))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(44, 44, 44)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(usrnameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(passwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(loginBtn)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(createAcc)))))))
-                        .addGap(38, 38, 38))))
+                        .addGap(242, 242, 242))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(pswdLabel)
+                                .addComponent(exitBtn))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(44, 44, 44)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(usrnameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(passwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(loginBtn)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(createAcc))))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(185, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(79, 79, 79)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel2)
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -136,11 +136,8 @@ public class LoginUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(createAcc)
                             .addComponent(loginBtn)
-                            .addComponent(exitBtn)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel3)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                            .addComponent(exitBtn))))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,44 +152,39 @@ public class LoginUI extends javax.swing.JFrame {
     }//GEN-LAST:event_usrnameInputActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        String x = String.valueOf(roleComboBox.getSelectedItem());
-        System.out.println(x);
+        String role = String.valueOf(roleComboBox.getSelectedItem());
+        System.out.println(role);
         try {
-            DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText());
+            if (DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
+                if (!"".equals(usrnameInput.getText()) && !"".equals(passwdInput.getText())) {
+                    if ("admin".equals(role))
+                        editUI.setVisible(true);
+                    else if ("user".equals(role))
+                        borrowUI.setVisible(true);
+                    setVisible(false);
+                } else
+                    JOptionPane.showMessageDialog(null, "Semua field harus diisi");
         } catch (SQLException ex) {
             Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (!"".equals(usrnameInput.getText()) && !"".equals(passwdInput.getText()))
-            if ("admin".equals(x)) {
-                setVisible(false);
-                // BUG belum ada editui
-                pinjamUI.setVisible(true);
-            //editUI.setVisible(true); 
-            } else if ("user".equals(x)) {
-                setVisible(false);
-                editUI.setVisible(true);
-            }
-        else
-            JOptionPane.showMessageDialog(null, "Semua field harus diisi");
-        
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void createAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccActionPerformed
+        String role = String.valueOf(roleComboBox.getSelectedItem());
         try {
-            DB.User.addAccount(usrnameInput.getText(), passwdInput.getText());
+            DB.User.addAccount(usrnameInput.getText(), passwdInput.getText(), role);
         } catch (SQLException ex) {
             Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_createAccActionPerformed
 
     public static void setBorrowWindow(Component frame) {
-        pinjamUI = frame;
-        //pinjamUI.refreshBooks();
+        borrowUI = frame;
     }
     
     public static void setEditWindow(Component frame) {
-        editUI = (PinjamUI) frame;
+        editUI = frame;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

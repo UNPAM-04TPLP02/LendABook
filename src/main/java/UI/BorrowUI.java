@@ -135,10 +135,6 @@ public class BorrowUI extends javax.swing.JFrame {
         availableList.setModel(model);
     }
     
-    public static void main(String args[]) {
-        
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accBtn;
     private javax.swing.JList<String> availableList;
