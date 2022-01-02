@@ -7,7 +7,6 @@ CREATE TABLE book_table (
 	penulis varchar(255) not null,
 	penerbit varchar(255) not null,
 	tahun int not null,
-	kategori varchar(255),
 	qty int,
 	PRIMARY KEY (book_id)
 	);
