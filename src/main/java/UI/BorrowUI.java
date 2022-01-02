@@ -29,7 +29,7 @@ public class BorrowUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        lendList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,12 +69,12 @@ public class BorrowUI extends javax.swing.JFrame {
         jLabel5.setText("Buku yang ingin dipinjam");
         jPanel3.add(jLabel5);
 
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
+        lendList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane6.setViewportView(jList4);
+        jScrollPane6.setViewportView(lendList);
 
         jPanel3.add(jScrollPane6);
 
@@ -114,7 +114,7 @@ public class BorrowUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(accBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,12 +141,12 @@ public class BorrowUI extends javax.swing.JFrame {
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JList<String> lendList;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables

@@ -157,8 +157,10 @@ public class LoginUI extends javax.swing.JFrame {
         try {
             if (DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
                 if (!"".equals(usrnameInput.getText()) && !"".equals(passwdInput.getText())) {
-                    if ("admin".equals(role))
+                    if ("admin".equals(role)) {
                         editUI.setVisible(true);
+                        //editUI.refresh
+                    }
                     else if ("user".equals(role))
                         borrowUI.setVisible(true);
                     setVisible(false);
