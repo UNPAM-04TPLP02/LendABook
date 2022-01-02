@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 public class PinjamUI extends javax.swing.JPanel {
-    List listBuku = null;
-    DefaultListModel<String> model;
-
+    static List listBuku = null;
+    static DefaultListModel<String> model;
+    
     public PinjamUI() {
         initComponents();
     }
@@ -37,7 +37,7 @@ public class PinjamUI extends javax.swing.JPanel {
 
         searchBtn.setText("Cari Buku");
 
-        backBtn.setText("Kembali");
+        backBtn.setText("Refresh list");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
@@ -95,9 +95,9 @@ public class PinjamUI extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(searchBtn))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(accBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(accBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -114,12 +114,15 @@ public class PinjamUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(accBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
         
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        
+        getRefreshBooks();
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    public void getRefreshBooks() {
         try {
             listBuku = DB.getDB();
         } catch (SQLException ex) {
@@ -132,9 +135,7 @@ public class PinjamUI extends javax.swing.JPanel {
             System.out.println(books);
         }
         availableList.setModel(model);
-        
-    }//GEN-LAST:event_backBtnActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accBtn;
