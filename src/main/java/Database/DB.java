@@ -91,9 +91,25 @@ public class DB {
             }
         }
     
-        public void lendBook() {
-        // Mengambil buku dari database dengan mengurangi nilai qty
-
+        public static void lendBook(String book) throws SQLException {
+            System.out.println(getBookID("Analisis data kesehatan"));
+            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(
+                    "UPDATE book_table SET qty = qty - 1"
+                            + "WHERE qty > 0 and judul_buku = '" + book + "';");
+            rs = stmt.executeQuery(
+                    "UPDATE user_account SET qty = qty + 1"
+                            + "WHERE role = 'user';");
+        }
+        
+        public static int getBookID(String bookName) throws SQLException {
+            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT book_id FROM book_table WHERE judul_buku = '"
+                    + bookName +"';");
+            int i = rs.getInt(bookName);
+            return i;            
         }
         
         public static int getBookQty(int book_id) throws SQLException {
