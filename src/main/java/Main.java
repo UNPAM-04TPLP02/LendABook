@@ -3,6 +3,7 @@ import UI.*;
 
 public class Main extends javax.swing.JFrame {
 
+    
     public Main() {
         initComponents();
     }
@@ -50,7 +51,6 @@ public class Main extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(() -> {
             login.setBorrowWindow(borrowWindow);
-            //login.setEditWindow()
             login.setVisible(true);
         });
     }
