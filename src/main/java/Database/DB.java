@@ -126,28 +126,29 @@ public class DB {
         }
     }
     
-    public static List getDB() throws SQLException {
+    public static List getBookList() throws SQLException {
         Array listBuku = null;
         String buku;
         int i = 0;
         List<String> list = new ArrayList<>();  
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM book_table");
-
-            while (rs.next()) {
-                list.add(rs.getString("judul_buku"));
-                //listBuku[i] = rs.getArray(1);
-                i += 1;
-                //rs.getArray(1);
-            }
-
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error");
-        }
+        
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
+//            stmt = con.createStatement();
+//            rs = stmt.executeQuery("SELECT * FROM book_table");
+//
+//            while (rs.next()) {
+//                list.add(rs.getString("judul_buku"));
+//                //listBuku[i] = rs.getArray(1);
+//                i += 1;
+//                //rs.getArray(1);
+//            }
+//
+//        } catch (ClassNotFoundException | SQLException e) {
+//            System.out.println("Error");
+//        }
         return list;
     }
     
