@@ -1,12 +1,8 @@
 import com.formdev.flatlaf.FlatDarkLaf;
 import UI.*;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import javax.swing.JButton;
 
 public class Main extends javax.swing.JFrame {
+
     public Main() {
         initComponents();
     }
@@ -40,26 +36,24 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]) {
-        FlatDarkLaf.setup(); //Dark Theme
-        // Inisialisasi komponen
-        Main mainFrame = new Main();
-        LoginUI login = new LoginUI();
+         //Dark Theme
+        FlatDarkLaf.setup();
+        Main borrowWindow = new Main();
         PinjamUI pinjam = new PinjamUI();
         EditUI editui = new EditUI();
-
-        mainFrame.setContentPane(login);
-        mainFrame.pack();
-        mainFrame.Tab.addTab("Pinjam Buku", pinjam);
-        mainFrame.Tab.addTab("Edit Buku", editui);
-        mainFrame.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
-        mainFrame.setExtendedState(Main.MAXIMIZED_BOTH); // Buat seluruh program fullscreen
+        LoginUI login = new LoginUI();
         
+        borrowWindow.Tab.addTab("Pinjam Buku", pinjam);
+        borrowWindow.Tab.addTab("Edit Buku", editui);
+        
+        borrowWindow.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
+        borrowWindow.setExtendedState(Main.MAXIMIZED_BOTH);
+
         java.awt.EventQueue.invokeLater(() -> {
-            //login.setVisible(true);
-            //login.addComponentListener((ComponentListener) mainFrame);
-            mainFrame.setVisible(true);  
+            login.setBorrowWindow(borrowWindow);
+            //login.setEditWindow()
+            login.setVisible(true);
         });
-            
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
