@@ -1,20 +1,14 @@
 package UI;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTable;
+import java.sql.*;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import Database.*;
+import javax.swing.JOptionPane;
 
 public class EditUI extends javax.swing.JFrame {
     
-    private static Connection con;
-    private static Statement stmt;
-    private static ResultSet rs;
+    static DefaultTableModel dtm;
     
     public EditUI() throws SQLException {
         initComponents();
@@ -25,11 +19,13 @@ public class EditUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        dbTab = new javax.swing.JPanel();
+        table = new javax.swing.JTabbedPane();
+        bookTab = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelBuku = new javax.swing.JTable();
-        settingsTab = new javax.swing.JPanel();
+        refreshBtn = new javax.swing.JButton();
+        exitBtn = new javax.swing.JButton();
+        editTab = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         penulis = new javax.swing.JLabel();
         judulBuku = new javax.swing.JLabel();
@@ -78,24 +74,42 @@ public class EditUI extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tabelBuku);
 
-        javax.swing.GroupLayout dbTabLayout = new javax.swing.GroupLayout(dbTab);
-        dbTab.setLayout(dbTabLayout);
-        dbTabLayout.setHorizontalGroup(
-            dbTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dbTabLayout.createSequentialGroup()
+        refreshBtn.setText("Refresh List");
+
+        exitBtn.setText("Keluar");
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout bookTabLayout = new javax.swing.GroupLayout(bookTab);
+        bookTab.setLayout(bookTabLayout);
+        bookTabLayout.setHorizontalGroup(
+            bookTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                .addGroup(bookTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                    .addGroup(bookTabLayout.createSequentialGroup()
+                        .addComponent(refreshBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        dbTabLayout.setVerticalGroup(
-            dbTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dbTabLayout.createSequentialGroup()
+        bookTabLayout.setVerticalGroup(
+            bookTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(bookTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jTabbedPane1.addTab("Database", dbTab);
+        table.addTab("Table", bookTab);
 
         penulis.setText("Penulis");
 
@@ -186,34 +200,34 @@ public class EditUI extends javax.swing.JFrame {
 
         delBookBtn.setText("Delete Buku");
 
-        javax.swing.GroupLayout settingsTabLayout = new javax.swing.GroupLayout(settingsTab);
-        settingsTab.setLayout(settingsTabLayout);
-        settingsTabLayout.setHorizontalGroup(
-            settingsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(settingsTabLayout.createSequentialGroup()
+        javax.swing.GroupLayout editTabLayout = new javax.swing.GroupLayout(editTab);
+        editTab.setLayout(editTabLayout);
+        editTabLayout.setHorizontalGroup(
+            editTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editTabLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingsTabLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editTabLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(delBookBtn)
                 .addGap(18, 18, 18)
                 .addComponent(addBookBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        settingsTabLayout.setVerticalGroup(
-            settingsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(settingsTabLayout.createSequentialGroup()
+        editTabLayout.setVerticalGroup(
+            editTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(settingsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(editTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBookBtn)
                     .addComponent(delBookBtn))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Database settings", settingsTab);
+        table.addTab("Edit Table", editTab);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Biodata Users");
@@ -232,10 +246,10 @@ public class EditUI extends javax.swing.JFrame {
             .addGroup(aboutUsTabLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("About Us", aboutUsTab);
+        table.addTab("About Us", aboutUsTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,38 +257,41 @@ public class EditUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(table)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(table)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public void refreshTableBuku() throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
-        stmt = con.createStatement();
-        rs = stmt.executeQuery("SELECT * FROM book_table");
+    private void refreshTableBuku() throws SQLException {
         String[] columnNames = {"Book ID", "Judul Buku", "Penulis", "Penerbit", "Tahun", "Qty"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-        while (rs.next()) {
-            String id = rs.getString("book_id");
-            String judul = rs.getString("judul_buku");
-            String penulis = rs.getString("penulis");
-            String penerbit = rs.getString("penerbit");
-            String tahun = rs.getString("tahun");
-            String qty = rs.getString("qty");
-            String[] data = { id, judul, penulis, penerbit, tahun, qty};
-
-            tableModel.addRow(data);
+        dtm = new DefaultTableModel(columnNames, 0);
+        List<String> list = DB.Book.getBookList(true);
+        String id, judul, writter, pub, year, qty;
+        String[] array = new String[list.size()];
+        list.toArray(array);
+                   
+        for(int i = 0; i < array.length; i += 6) {
+            id = array[i];
+            judul = array[i + 1];
+            writter = array[i + 2];
+            pub = array[i + 3];
+            year = array[i + 4];
+            qty = array[i + 5];
+            
+            System.out.println(i);
+            String[] data = { id, judul, writter, pub, year, qty };
+            dtm.addRow(data);
         }
-        tabelBuku.setModel(tableModel);
+        tabelBuku.setModel(dtm);
     }
      
     private void judulBukuTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_judulBukuTFActionPerformed
@@ -289,25 +306,32 @@ public class EditUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tahunTFActionPerformed
 
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+        JOptionPane.showMessageDialog(null, "Anda Keluar Program");
+        System.exit(0);
+    }//GEN-LAST:event_exitBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel aboutUsTab;
     private javax.swing.JButton addBookBtn;
-    private javax.swing.JPanel dbTab;
+    private javax.swing.JPanel bookTab;
     private javax.swing.JButton delBookBtn;
+    private javax.swing.JPanel editTab;
+    private javax.swing.JButton exitBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel judulBuku;
     private javax.swing.JTextField judulBukuTF;
     private javax.swing.JLabel penerbit;
     private javax.swing.JTextField penerbitTF;
     private javax.swing.JLabel penulis;
     private javax.swing.JTextField penulisTF;
-    private javax.swing.JPanel settingsTab;
+    private javax.swing.JButton refreshBtn;
     private javax.swing.JTable tabelBuku;
+    private javax.swing.JTabbedPane table;
     private javax.swing.JLabel tahun;
     private javax.swing.JLabel tahun1;
     private javax.swing.JTextField tahunTF;

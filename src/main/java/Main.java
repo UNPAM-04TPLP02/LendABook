@@ -1,10 +1,10 @@
 import com.formdev.flatlaf.FlatDarkLaf;
 import UI.*;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 
 public class Main extends javax.swing.JFrame {
 
-    
     public Main() {
         initComponents();
     }
@@ -30,18 +30,20 @@ public class Main extends javax.swing.JFrame {
     public static void main(String args[]) throws SQLException {
         
         FlatDarkLaf.setup(); //Dark Theme
-        //Main borrowWindow = new Main();
         LoginUI login = new LoginUI();
-        EditUI editui = new EditUI();
-        BorrowUI borrow = new BorrowUI();
+        EditUI editUI = new EditUI();
+        BorrowUI borrowUI = new BorrowUI();
         
         login.setDefaultCloseOperation(LoginUI.EXIT_ON_CLOSE);
-        editui.setDefaultCloseOperation(EditUI.EXIT_ON_CLOSE);
-        borrow.setDefaultCloseOperation(BorrowUI.EXIT_ON_CLOSE);
+        editUI.setDefaultCloseOperation(EditUI.EXIT_ON_CLOSE);
+        borrowUI.setDefaultCloseOperation(BorrowUI.EXIT_ON_CLOSE);
+        
+        editUI.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        borrowUI.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         
         java.awt.EventQueue.invokeLater(() -> {
-            login.setBorrowWindow(borrow);
-            login.setEditWindow(editui);
+            LoginUI.setBorrowWindow(borrowUI);
+            LoginUI.setEditWindow(editUI);
             login.setVisible(true);
         });
     }
