@@ -1,13 +1,6 @@
 package UI;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTable;
+import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
 public class EditUI extends javax.swing.JFrame {
@@ -25,7 +18,7 @@ public class EditUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        editTable = new javax.swing.JTabbedPane();
         dbTab = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelBuku = new javax.swing.JTable();
@@ -95,7 +88,7 @@ public class EditUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Database", dbTab);
+        editTable.addTab("Table", dbTab);
 
         penulis.setText("Penulis");
 
@@ -213,7 +206,7 @@ public class EditUI extends javax.swing.JFrame {
                 .addContainerGap(166, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Database settings", settingsTab);
+        editTable.addTab("Edit Table", settingsTab);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Biodata Users");
@@ -235,7 +228,7 @@ public class EditUI extends javax.swing.JFrame {
                 .addContainerGap(365, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("About Us", aboutUsTab);
+        editTable.addTab("About Us", aboutUsTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,14 +236,14 @@ public class EditUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(editTable)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(editTable)
                 .addContainerGap())
         );
 
@@ -295,11 +288,11 @@ public class EditUI extends javax.swing.JFrame {
     private javax.swing.JButton addBookBtn;
     private javax.swing.JPanel dbTab;
     private javax.swing.JButton delBookBtn;
+    private javax.swing.JTabbedPane editTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel judulBuku;
     private javax.swing.JTextField judulBukuTF;
     private javax.swing.JLabel penerbit;
