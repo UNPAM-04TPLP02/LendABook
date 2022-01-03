@@ -1,19 +1,30 @@
-package UI;
+package UI; 
 
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import Database.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class BorrowUI extends javax.swing.JFrame {
     
     static List listBuku = null;
     static DefaultListModel<String> model;
-    public BorrowUI() {
+    public static Connection con;
+    public static Statement stmt;
+    public static ResultSet rs;
+    public DefaultTableModel dtm;
+    
+    public BorrowUI() throws SQLException {
         initComponents();
+        getRefreshBooks();
     }
 
     @SuppressWarnings("unchecked")
@@ -24,7 +35,7 @@ public class BorrowUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        availableList = new javax.swing.JList<>();
+        bukuTersedia = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -42,12 +53,34 @@ public class BorrowUI extends javax.swing.JFrame {
         jLabel3.setText("Buku yang tersedia");
         jPanel1.add(jLabel3);
 
-        availableList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(availableList);
+        bukuTersedia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Judul Buku", "Qty"
+            }
+        ));
+        jScrollPane4.setViewportView(bukuTersedia);
 
         jPanel1.add(jScrollPane4);
 
@@ -123,11 +156,11 @@ public class BorrowUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(89, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(299, Short.MAX_VALUE)
+                    .addContainerGap(368, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
@@ -136,13 +169,20 @@ public class BorrowUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+        try {
+            getRefreshBooks();
+        } catch (SQLException ex) {
+            Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void pinjamBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinjamBtnActionPerformed
         try {
-            String selectedBook = availableList.getSelectedValue();
-            Database.DB.Book.lendBook(selectedBook);
+            int column = 0;
+            int row = bukuTersedia.getSelectedRow();
+            String value = bukuTersedia.getModel().getValueAt(row, column).toString();
+            DB.Book.lendBook(value);
             JOptionPane.showMessageDialog(null, "Buku berhasil dipinjam");
         } catch (SQLException ex) {
             Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,18 +191,24 @@ public class BorrowUI extends javax.swing.JFrame {
     }//GEN-LAST:event_pinjamBtnActionPerformed
 
     public void getRefreshBooks() throws SQLException {
-        //listBuku = DB.getDB();
-        model = new DefaultListModel<>(); 
+        con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT * FROM book_table");
+        String[] columnNames = {"Judul Buku", "Qty"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         
-        for(Object books : listBuku) {
-            model.addElement(books.toString()); 
-            System.out.println(books);
+        while (rs.next()) {
+            String judul = rs.getString("judul_buku");
+            String qty = rs.getString("qty");
+            String[] data = { judul, qty};
+
+            tableModel.addRow(data);
         }
-        availableList.setModel(model);
+        bukuTersedia.setModel(tableModel);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> availableList;
+    private javax.swing.JTable bukuTersedia;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

@@ -9,9 +9,9 @@ import java.util.List;
 
 public class DB {
     // Ini adalah class untuk mengatur database
-    private static Connection con;
-    private static Statement stmt;
-    private static ResultSet rs;
+    public static Connection con;
+    public static Statement stmt;
+    public static ResultSet rs;
     public DefaultTableModel dtm;
     
     public static class User {
@@ -95,12 +95,19 @@ public class DB {
             System.out.println(getBookID("Analisis data kesehatan"));
             con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
             stmt = con.createStatement();
-            rs = stmt.executeQuery(
+            try {
+                rs = stmt.executeQuery(
                     "UPDATE book_table SET qty = qty - 1"
                             + "WHERE qty > 0 and judul_buku = '" + book + "';");
-            rs = stmt.executeQuery(
+                rs = stmt.executeQuery(
                     "UPDATE user_account SET qty = qty + 1"
                             + "WHERE role = 'user';");
+                stmt.executeUpdate("UPDATE book_table SET qty =+ " + 1
+                    + "WHERE judul_buku = '" + book + "';");
+                    JOptionPane.showMessageDialog(null, "Berhasil meminjam buku");
+            } catch(SQLException ex) {
+                
+            }
         }
         
         public static int getBookID(String bookName) throws SQLException {
@@ -140,32 +147,28 @@ public class DB {
             }
             return true;
         }
-    }
-    
-    public static List getBookList() throws SQLException {
+        public static List getBookList() throws SQLException {
         Array listBuku = null;
         String buku;
         int i = 0;
         List<String> list = new ArrayList<>();  
-
         
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
-//            stmt = con.createStatement();
-//            rs = stmt.executeQuery("SELECT * FROM book_table");
-//
-//            while (rs.next()) {
-//                list.add(rs.getString("judul_buku"));
-//                //listBuku[i] = rs.getArray(1);
-//                i += 1;
-//                //rs.getArray(1);
-//            }
-//
-//        } catch (ClassNotFoundException | SQLException e) {
-//            System.out.println("Error");
-//        }
-        return list;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM book_table");
+
+            while (rs.next()) {
+                list.add(rs.getString("judul_buku"));
+                list.add(rs.getString("qty"));
+                i += 1;
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error");
+        }
+            return list;
+        }
     }
-    
 }

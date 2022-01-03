@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class EditUI extends javax.swing.JFrame {
     
@@ -12,8 +16,9 @@ public class EditUI extends javax.swing.JFrame {
     private static Statement stmt;
     private static ResultSet rs;
     
-    public EditUI() {
+    public EditUI() throws SQLException {
         initComponents();
+        refreshTableBuku();
     }
     
     @SuppressWarnings("unchecked")
@@ -23,8 +28,7 @@ public class EditUI extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         dbTab = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jenisTabel = new javax.swing.JComboBox<>();
+        tabelBuku = new javax.swing.JTable();
         settingsTab = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         penulis = new javax.swing.JLabel();
@@ -45,8 +49,22 @@ public class EditUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelBuku.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -58,14 +76,7 @@ public class EditUI extends javax.swing.JFrame {
                 "judul", "penulis", "penerbit", "tahun", "kategori", "qty"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
-
-        jenisTabel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tabel Buku", "Tabel User" }));
-        jenisTabel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jenisTabelActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(tabelBuku);
 
         javax.swing.GroupLayout dbTabLayout = new javax.swing.GroupLayout(dbTab);
         dbTab.setLayout(dbTabLayout);
@@ -73,25 +84,15 @@ public class EditUI extends javax.swing.JFrame {
             dbTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dbTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jenisTabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 571, Short.MAX_VALUE))
-            .addGroup(dbTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(dbTabLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                .addContainerGap())
         );
         dbTabLayout.setVerticalGroup(
             dbTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dbTabLayout.createSequentialGroup()
+            .addGroup(dbTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jenisTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
-            .addGroup(dbTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(dbTabLayout.createSequentialGroup()
-                    .addGap(37, 37, 37)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Database", dbTab);
@@ -255,20 +256,27 @@ public class EditUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void refreshList() throws SQLException {
+    
+    public void refreshTableBuku() throws SQLException {
         con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
         stmt = con.createStatement();
         rs = stmt.executeQuery("SELECT * FROM book_table");
+        String[] columnNames = {"Book ID", "Judul Buku", "Penulis", "Penerbit", "Tahun", "Qty"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         while (rs.next()) {
-            int book_id = rs.getInt("book_id");
-            String judul_buku = rs.getString("judul_buku");
+            String id = rs.getString("book_id");
+            String judul = rs.getString("judul_buku");
             String penulis = rs.getString("penulis");
-            int tahun = rs.getInt("tahun");
-            System.out.println(judul_buku);
+            String penerbit = rs.getString("penerbit");
+            String tahun = rs.getString("tahun");
+            String qty = rs.getString("qty");
+            String[] data = { id, judul, penulis, penerbit, tahun, qty};
+
+            tableModel.addRow(data);
         }
+        tabelBuku.setModel(tableModel);
     }
-    
+     
     private void judulBukuTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_judulBukuTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_judulBukuTFActionPerformed
@@ -281,10 +289,6 @@ public class EditUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tahunTFActionPerformed
 
-    private void jenisTabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisTabelActionPerformed
-        System.out.println("Switched");
-    }//GEN-LAST:event_jenisTabelActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel aboutUsTab;
@@ -296,8 +300,6 @@ public class EditUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JComboBox<String> jenisTabel;
     private javax.swing.JLabel judulBuku;
     private javax.swing.JTextField judulBukuTF;
     private javax.swing.JLabel penerbit;
@@ -305,6 +307,7 @@ public class EditUI extends javax.swing.JFrame {
     private javax.swing.JLabel penulis;
     private javax.swing.JTextField penulisTF;
     private javax.swing.JPanel settingsTab;
+    private javax.swing.JTable tabelBuku;
     private javax.swing.JLabel tahun;
     private javax.swing.JLabel tahun1;
     private javax.swing.JTextField tahunTF;
