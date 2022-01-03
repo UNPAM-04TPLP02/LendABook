@@ -307,8 +307,11 @@ public class EditUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tahunTFActionPerformed
 
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
-        JOptionPane.showMessageDialog(null, "Anda Keluar Program");
-        System.exit(0);
+        int ok = JOptionPane.showConfirmDialog(null, 
+                "Apakah anda yakin ingin keluar?",
+                "Konfirmasi",JOptionPane.YES_NO_OPTION);
+        if (ok == 0)
+            System.exit(0);
     }//GEN-LAST:event_exitBtnActionPerformed
 
 
