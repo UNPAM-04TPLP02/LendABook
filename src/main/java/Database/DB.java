@@ -3,9 +3,12 @@ package Database;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.Map;
 
 public class DB {
 
@@ -178,17 +181,27 @@ public class DB {
         }
         
         
-        public static List getBookList() throws SQLException {
+        public static List getBookList(boolean returnAll) throws SQLException {
             List<String> list = new ArrayList<>();  
-        
+            
             try {
                 stmt = con.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM book_table");
-
-                while (rs.next()) {
-                    list.add(rs.getString("judul_buku"));
-                    list.add(rs.getString("qty"));
-                }
+                if (returnAll)
+                    while (rs.next()) {
+                        list.add(rs.getString("book_id"));
+                        list.add(rs.getString("judul_buku"));
+                        list.add(rs.getString("penulis"));
+                        list.add(rs.getString("penerbit"));
+                        list.add(rs.getString("tahun"));
+                        list.add(rs.getString("qty"));  
+                    }
+                else
+                    while (rs.next()) {
+                        list.add(rs.getString("judul_buku"));
+                        list.add(rs.getString("qty"));
+                    }
+                
             } catch (SQLException e) {
                 System.out.println("Error");
             }

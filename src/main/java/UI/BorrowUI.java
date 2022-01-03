@@ -1,25 +1,18 @@
 package UI; 
 
-import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import Database.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class BorrowUI extends javax.swing.JFrame {
+public final class BorrowUI extends javax.swing.JFrame {
     
     static List listBuku = null;
     static DefaultListModel<String> model;
-    public static Connection con;
-    public static Statement stmt;
-    public static ResultSet rs;
     public DefaultTableModel dtm;
     
     public BorrowUI() throws SQLException {
@@ -175,6 +168,7 @@ public class BorrowUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
       
+    
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         try {
             getRefreshBooks();
@@ -184,6 +178,7 @@ public class BorrowUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_refreshBtnActionPerformed
 
+    
     private void pinjamBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinjamBtnActionPerformed
         try {
             int column = 0;
@@ -197,27 +192,31 @@ public class BorrowUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_pinjamBtnActionPerformed
 
+    
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
         JOptionPane.showMessageDialog(null, "Anda Keluar Program");
         System.exit(0);
     }//GEN-LAST:event_exitBtnActionPerformed
 
+    
     public void getRefreshBooks() throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://localhost/book_db", "root", "");
-        stmt = con.createStatement();
-        rs = stmt.executeQuery("SELECT * FROM book_table");
         String[] columnNames = {"Judul Buku", "Qty"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        dtm = new DefaultTableModel(columnNames, 0);
+        List<String> list = DB.Book.getBookList(false);
+        String judul, qty;
+        String[] array = new String[list.size()];
+        list.toArray(array);
         
-        while (rs.next()) {
-            String judul = rs.getString("judul_buku");
-            String qty = rs.getString("qty");
-            String[] data = { judul, qty};
+        for(int i = 0; i < array.length; i += 2) {
+            judul = array[i];
+            qty = array[i + 1];
 
-            tableModel.addRow(data);
+            String[] data = { judul, qty };
+            dtm.addRow(data);
         }
-        bukuTersedia.setModel(tableModel);
+        bukuTersedia.setModel(dtm);
     }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable bukuTersedia;

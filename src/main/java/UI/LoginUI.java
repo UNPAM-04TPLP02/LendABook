@@ -187,10 +187,11 @@ public class LoginUI extends javax.swing.JFrame {
         String role = String.valueOf(roleComboBox.getSelectedItem());
         
         try {
-            if (dbUser.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
+            if (DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
                 if (!"".equals(usrnameInput.getText()) && !"".equals(passwdInput.getText())) {
                     if ("admin".equals(role)) {
                         editUI.setVisible(true);
+
                     }
                     else if ("user".equals(role))
                         borrowUI.setVisible(true);
@@ -207,7 +208,7 @@ public class LoginUI extends javax.swing.JFrame {
     private void createAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccActionPerformed
         String role = String.valueOf(roleComboBox.getSelectedItem());
         try {
-            dbUser.addAccount(usrnameInput.getText(), passwdInput.getText(), role);
+            DB.User.addAccount(usrnameInput.getText(), passwdInput.getText(), role);
         } catch (SQLException ex) {
             Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
         }
