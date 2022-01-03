@@ -11,9 +11,15 @@ public class LoginUI extends javax.swing.JFrame {
 
     public static Component borrowUI;
     public static Component editUI;
+    private final DB.User dbUser;
+    private final DB.Book dbBook;
+    private final DB db;
     
     public LoginUI() {
         initComponents();
+        dbUser = new DB.User();
+        dbBook = new DB.Book();
+        db = new DB();
     }
 
     @SuppressWarnings("unchecked")
@@ -156,23 +162,35 @@ public class LoginUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public static void setBorrowWindow(Component frame) {
+        borrowUI = frame;
+    }
+    
+    
+    public static void setEditWindow(Component frame) {
+        editUI = frame;
+    }
+    
+    
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitBtnActionPerformed
 
+    
     private void usrnameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrnameInputActionPerformed
         
     }//GEN-LAST:event_usrnameInputActionPerformed
 
+    
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         String role = String.valueOf(roleComboBox.getSelectedItem());
-        System.out.println(role);
+        
         try {
-            if (DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
+            if (dbUser.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
                 if (!"".equals(usrnameInput.getText()) && !"".equals(passwdInput.getText())) {
                     if ("admin".equals(role)) {
                         editUI.setVisible(true);
-                        //editUI.refresh
                     }
                     else if ("user".equals(role))
                         borrowUI.setVisible(true);
@@ -185,27 +203,22 @@ public class LoginUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_loginBtnActionPerformed
 
+    
     private void createAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccActionPerformed
         String role = String.valueOf(roleComboBox.getSelectedItem());
         try {
-            DB.User.addAccount(usrnameInput.getText(), passwdInput.getText(), role);
+            dbUser.addAccount(usrnameInput.getText(), passwdInput.getText(), role);
         } catch (SQLException ex) {
             Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_createAccActionPerformed
 
+    
     private void roleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_roleComboBoxActionPerformed
 
-    public static void setBorrowWindow(Component frame) {
-        borrowUI = frame;
-    }
     
-    public static void setEditWindow(Component frame) {
-        editUI = frame;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createAcc;
     private javax.swing.JButton exitBtn;
