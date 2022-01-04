@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /home/alvin/repos/java/LendABook/src/main/java/UI/LoginUI.java
 /home/alvin/repos/java/LendABook/src/main/java/Main.java
 /home/alvin/repos/java/LendABook/src/main/java/UI/UItemUI.java
@@ -5,3 +6,12 @@
 /home/alvin/repos/java/LendABook/src/main/java/UI/BorrowUI.java
 /home/alvin/repos/java/LendABook/src/main/java/UI/EditUI.java
 /home/alvin/repos/java/LendABook/src/main/java/UI/UpdateItemUI.java
+=======
+D:\SEMESTER 4\uas\perograman\LendABook\src\main\java\UI\UItemUI.java
+D:\SEMESTER 4\uas\perograman\LendABook\src\main\java\Database\DB.java
+D:\SEMESTER 4\uas\perograman\LendABook\src\main\java\Main.java
+D:\SEMESTER 4\uas\perograman\LendABook\src\main\java\UI\EditUI.java
+D:\SEMESTER 4\uas\perograman\LendABook\src\main\java\UI\UpdateItemUI.java
+D:\SEMESTER 4\uas\perograman\LendABook\src\main\java\UI\BorrowUI.java
+D:\SEMESTER 4\uas\perograman\LendABook\src\main\java\UI\LoginUI.java
+>>>>>>> 1fa8346a904be84c9e1e9e2ac99e9cdd40315a04
