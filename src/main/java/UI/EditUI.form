@@ -63,9 +63,12 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="editor" max="32767" attributes="0"/>
                           <Component id="scrollPanel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="buttons" alignment="1" max="32767" attributes="0"/>
+                          <Component id="buttons" alignment="1" pref="1240" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="editor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -99,7 +102,7 @@
                                       <Component id="tahun" min="-2" max="-2" attributes="0"/>
                                       <Component id="tahun1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="762" max="32767" attributes="0"/>
+                                  <EmptySpace pref="303" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="penerbitTF" alignment="1" min="-2" pref="448" max="-2" attributes="0"/>
                                       <Component id="qtySpinner" alignment="1" min="-2" pref="131" max="-2" attributes="0"/>
