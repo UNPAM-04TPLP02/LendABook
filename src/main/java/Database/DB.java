@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.Objects;
 
 
 public class DB {
@@ -135,13 +136,14 @@ public class DB {
             stmt = con.createStatement();
             try {
                 stmt.executeQuery(
-                        "UPDATE book_table SET qty = qty - 1" + " WHERE qty > 0 and judul_buku = '" + book + "';");
+                        "UPDATE book_table SET qty = qty - 1 WHERE judul_buku = '" + book + "';");
+                System.out.println("WOW " + book);
                 stmt.executeQuery(
                         "UPDATE user_account SET qty = qty + 1 " + " WHERE username = '" + username + "';");
                     JOptionPane.showMessageDialog(null, "Berhasil meminjam buku");
                     
             } catch(SQLException ex) {
-                
+                JOptionPane.showMessageDialog(null, "Gagal meminjam buku");
             }
         }
         
@@ -202,13 +204,19 @@ public class DB {
             
             try {
                 stmt = con.createStatement();
-                
                 if (isUser) {
-                    rs = stmt.executeQuery("SELECT qty FROM user_account WHERE id = 1;");
-                    
+                    rs = stmt.executeQuery("SELECT * FROM user_account WHERE username = '" +username+ "';");
+                    while (rs.next()) {
+                        list.add(rs.getString("qty"));
+                        if (Objects.isNull(rs.getString("book_id")))
+                            list.add("0");
+                        else
+                            list.add(rs.getString("book_id"));
+                    }
+                 
                 } else {
                     rs = stmt.executeQuery("SELECT * FROM book_table");
-                    if (returnAll && !isUser)
+                    if (returnAll)
                         while (rs.next()) {
                             list.add(rs.getString("book_id"));
                             list.add(rs.getString("judul_buku"));

@@ -14,11 +14,12 @@ public final class BorrowUI extends javax.swing.JFrame {
     
     static List listBuku = null;
     static DefaultListModel<String> model;
-    public DefaultTableModel dtm;
+    public DefaultTableModel dbModel;
+    public DefaultTableModel userModel;
     
     public BorrowUI() throws SQLException {
         initComponents();
-        getRefreshBooks();
+        refreshBookList();
     }
 
     @SuppressWarnings("unchecked")
@@ -213,7 +214,7 @@ public final class BorrowUI extends javax.swing.JFrame {
     
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         try {
-            getRefreshBooks();
+            refreshBookList();
         } catch (SQLException ex) {
             Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -231,8 +232,9 @@ public final class BorrowUI extends javax.swing.JFrame {
             int column = 0;
             int row = bukuTersedia.getSelectedRow();
             String value = bukuTersedia.getModel().getValueAt(row, column).toString();
+            System.out.println("VALUE " + value);
             DB.Book.lendBook(value);
-            getRefreshBooks();
+            refreshBookList();
             JOptionPane.showMessageDialog(null, "Buku berhasil dipinjam");
         } catch (SQLException ex) {
             Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,22 +253,23 @@ public final class BorrowUI extends javax.swing.JFrame {
 
     
     private void bukuTersediaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bukuTersediaMouseClicked
-        int i = bukuTersedia.getSelectedRow();
-        if (i == -1) {
-            return;
-        }
-        String judul = (String) bukuTersedia.getValueAt(i, 0);
-        try {
-            DB.Book.lendBook(judul);
-        } catch (SQLException ex) {
-            Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        int i = bukuTersedia.getSelectedRow();
+//        if (i == -1) {
+//            return;
+//        }
+//        String judul = (String) bukuTersedia.getValueAt(i, 0);
+//        try {
+//            DB.Book.lendBook(judul);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_bukuTersediaMouseClicked
 
     
-    public void getRefreshBooks() throws SQLException {
+    public void refreshBookList() throws SQLException {
         String[] columnNames = {"Judul Buku", "Qty"};
-        dtm = new DefaultTableModel(columnNames, 0);
+        dbModel = new DefaultTableModel(columnNames, 0);
+        userModel = new DefaultTableModel(columnNames, 0);
         List<String> bukuDB = DB.Book.getBookList(false, false);
         List<String> bukuUser = DB.Book.getBookList(false, true);
         
@@ -276,17 +279,23 @@ public final class BorrowUI extends javax.swing.JFrame {
         bukuUser.toArray(arrayUser);
         bukuDB.toArray(arrayDb);
         int number1, number2;
+        System.out.println(bukuUser);
         
-        for(int i = 0; i < arrayUser.length; i += 2) {
-            judul2 = arrayUser[i];
-            qty2 = arrayUser[i + 1];
-            number2 = Integer.valueOf(qty2);
-            if (number2 > 0) {
-                String[] data = { judul2, qty2 };
-                dtm.addRow(data);
+        if (arrayUser != null) {
+            for(int i = 0; i < arrayUser.length; i += 2) {
+                judul2 = arrayUser[i];
+                qty2 = arrayUser[i + 1];
+                number2 = Integer.valueOf(qty2);
+                if (number2 > 0) {
+                    String[] data = { judul2, qty2 };
+                    userModel.addRow(data);
+                }
             }
+        } else {
+            String[] data = { "0", "0" };
+            userModel.addRow(data);
         }
-        bukuDipinjam.setModel(dtm);
+        bukuDipinjam.setModel(userModel);
         
         for(int i = 0; i < arrayDb.length; i += 2) {
             judul1 = arrayDb[i];
@@ -294,10 +303,10 @@ public final class BorrowUI extends javax.swing.JFrame {
             number1 = Integer.valueOf(qty1);
             if (number1 > 0) {
                 String[] data = { judul1, qty1 };
-                dtm.addRow(data);
+                dbModel.addRow(data);
             }
         }
-        bukuTersedia.setModel(dtm);
+        bukuTersedia.setModel(dbModel);
     }
     
     

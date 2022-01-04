@@ -197,10 +197,12 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         String role = String.valueOf(roleComboBox.getSelectedItem());
+        String username = usrnameInput.getText();
+        String password = passwdInput.getText();
         try {
-            if (DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
-                if (!"".equals(usrnameInput.getText()) && !"".equals(passwdInput.getText())) {
-                    DB.User.setUserName(usrnameInput.getText());
+            if (DB.User.loginAccount(username, password, role))
+                if (!"".equals(username) && !"".equals(password)) {
+                    DB.User.setUserName(username);
                     if ("admin".equals(role)) {
                         editUI.setVisible(true);
                     }
