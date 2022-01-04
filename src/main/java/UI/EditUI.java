@@ -73,7 +73,7 @@ public class EditUI extends javax.swing.JFrame {
 
         tahun1.setText("Qty");
 
-        qtySpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        qtySpinner.setModel(new javax.swing.SpinnerNumberModel(23, -100, 100, 1));
 
         javax.swing.GroupLayout editorLayout = new javax.swing.GroupLayout(editor);
         editor.setLayout(editorLayout);
@@ -217,8 +217,6 @@ public class EditUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Biodata Users");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\SEMESTER 4\\uas\\perograman\\LendABook\\src\\resources\\BIMA.jpeg")); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("Nama  :");
 
@@ -230,8 +228,6 @@ public class EditUI extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setText("171011450021");
-
-        jLabel7.setIcon(new javax.swing.ImageIcon("D:\\SEMESTER 4\\uas\\perograman\\LendABook\\src\\resources\\fahruji.jpg")); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("Nama  :");
@@ -280,9 +276,7 @@ public class EditUI extends javax.swing.JFrame {
                                     .addGroup(aboutUsTabLayout.createSequentialGroup()
                                         .addComponent(jLabel12)
                                         .addGap(24, 24, 24))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutUsTabLayout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(18, 18, 18)))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(13, 13, 13)
                                 .addGroup(aboutUsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(aboutUsTabLayout.createSequentialGroup()
