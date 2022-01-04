@@ -134,6 +134,8 @@ public class DB {
         
         public static void lendBook(String book) throws SQLException {
             stmt = con.createStatement();
+            System.out.println(book);
+            //UPDATE book_table SET qty = qty + " + qty + " WHERE judul_buku = '" + bookName + "';"
             try {
                 stmt.executeQuery(
                         "UPDATE book_table SET qty = qty - 1 WHERE judul_buku = '" + book + "';");
@@ -164,7 +166,8 @@ public class DB {
         public static void setBookQty(String bookName, int qty) throws SQLException {
             stmt = con.createStatement();
             try {
-                stmt.executeUpdate("UPDATE book_table SET qty = qty + " + qty + " WHERE judul_buku = '" + bookName + "';");
+                stmt.executeUpdate(
+                        "UPDATE book_table SET qty = qty + " + qty + " WHERE judul_buku = '" + bookName + "';");
                 JOptionPane.showMessageDialog(null, "Berhasil menyimpan data");
             } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
