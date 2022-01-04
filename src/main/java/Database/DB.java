@@ -58,11 +58,10 @@ public class DB {
             if (!"".equals(username) && !"".equals(password))
                 if (checkUserAvailablity(username) != true)
                     try {
-                        stmt.executeUpdate("INSERT INTO user_account (username, password, role) VALUES ("
-                            + "'" + username + "',"
-                            + "'" + password + "',"
-                            + "'" + role + "')");
-                            JOptionPane.showMessageDialog(null, "Berhasil menyimpan data");
+                        stmt.executeUpdate(
+                                "INSERT INTO user_account (username, password, role, qty) VALUES ("
+                                        + "'" + username + "'," + "'" + password + "','" + role + "'," + 0 +  ");");
+                        JOptionPane.showMessageDialog(null, "Berhasil menyimpan data");
                     } catch (HeadlessException e) {
                         JOptionPane.showMessageDialog(null, "Perintah Salah: " + e);
                     }

@@ -16,8 +16,8 @@ CREATE TABLE user_account (
 	username varchar(255) not null,
 	password varchar(255) not null,
 	role varchar(255) not null,
-	book_id int not null,
-	qty int not null,
+	book_id int,
+	qty int,
 	PRIMARY KEY (id),
     FOREIGN KEY (book_id) REFERENCES book_table(book_id)
 	);
