@@ -1,14 +1,12 @@
 package Database;
 
-import UI.EditUI;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class DB {
 
@@ -17,6 +15,7 @@ public class DB {
     public static ResultSet rs;
     public DefaultTableModel dtm;
     private final String databaseName = "book_db";
+    private static String username; // Disimpan saat user login dan digunakan untuk memeriksa username
     
     public DB() {
         koneksi();
@@ -49,6 +48,11 @@ public class DB {
     
     
     public static class User {
+        
+        public static void setUserName(String usr) {
+            username = usr;
+        }
+        
         
         public static void addAccount(String username, String password, String role) throws SQLException {
             if (!"".equals(username) && !"".equals(password))
@@ -116,8 +120,11 @@ public class DB {
     public static class Book {
         public void retrieveBook(int book_id, int qty) throws SQLException {    
             try {
-                stmt.executeUpdate("UPDATE book_table SET qty =+ " + Integer.toString(qty)
+                stmt.executeUpdate("UPDATE book_table SET qty = qty + " + Integer.toString(qty)
                     + "WHERE book_id = " + Integer.toString(book_id) + ";");
+                stmt.executeQuery(
+                        "UPDATE user_account SET qty = qty - 1 " + " WHERE username = '" + username + "';");
+                
                     JOptionPane.showMessageDialog(null, "Berhasil menyimpan data");
             } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
@@ -128,14 +135,10 @@ public class DB {
         public static void lendBook(String book) throws SQLException {
             stmt = con.createStatement();
             try {
-                rs = stmt.executeQuery(
-                    "UPDATE book_table SET qty = qty - 1"
-                            + "WHERE qty > 0 and judul_buku = '" + book + "';");
-                rs = stmt.executeQuery(
-                    "UPDATE user_account SET qty = qty + 1"
-                            + "WHERE role = 'user';");
-                stmt.executeUpdate("UPDATE book_table SET qty =+ " + 1
-                    + "WHERE judul_buku = '" + book + "';");
+                stmt.executeQuery(
+                        "UPDATE book_table SET qty = qty - 1" + " WHERE qty > 0 and judul_buku = '" + book + "';");
+                stmt.executeQuery(
+                        "UPDATE user_account SET qty = qty + 1 " + " WHERE username = '" + username + "';");
                     JOptionPane.showMessageDialog(null, "Berhasil meminjam buku");
             } catch(SQLException ex) {
                 
@@ -194,27 +197,32 @@ public class DB {
         }
         
         
-        public static List getBookList(boolean returnAll) throws SQLException {
+        public static List getBookList(boolean returnAll, boolean isUser) throws SQLException {
             List<String> list = new ArrayList<>();  
             
             try {
                 stmt = con.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM book_table");
-                if (returnAll)
-                    while (rs.next()) {
-                        list.add(rs.getString("book_id"));
-                        list.add(rs.getString("judul_buku"));
-                        list.add(rs.getString("penulis"));
-                        list.add(rs.getString("penerbit"));
-                        list.add(rs.getString("tahun"));
-                        list.add(rs.getString("qty"));  
-                    }
-                else
-                    while (rs.next()) {
-                        list.add(rs.getString("judul_buku"));
-                        list.add(rs.getString("qty"));
-                    }
                 
+                if (isUser) {
+                    rs = stmt.executeQuery("SELECT qty FROM user_account WHERE id = 1;");
+                    
+                } else {
+                    rs = stmt.executeQuery("SELECT * FROM book_table");
+                    if (returnAll && !isUser)
+                        while (rs.next()) {
+                            list.add(rs.getString("book_id"));
+                            list.add(rs.getString("judul_buku"));
+                            list.add(rs.getString("penulis"));
+                            list.add(rs.getString("penerbit"));
+                            list.add(rs.getString("tahun"));
+                            list.add(rs.getString("qty"));  
+                    } else {
+                        while (rs.next()) {
+                            list.add(rs.getString("judul_buku"));
+                            list.add(rs.getString("qty"));
+                        }
+                    }
+                }
             } catch (SQLException e) {
                 System.out.println("Error");
             }

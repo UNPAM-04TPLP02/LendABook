@@ -74,6 +74,11 @@ public final class BorrowUI extends javax.swing.JFrame {
                 "Judul Buku", "Qty"
             }
         ));
+        bukuTersedia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bukuTersediaMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(bukuTersedia);
 
         jPanel1.add(jScrollPane4);
@@ -87,6 +92,12 @@ public final class BorrowUI extends javax.swing.JFrame {
         jLabel5.setText("Buku yang ingin dipinjam");
         jPanel3.add(jLabel5);
 
+        lendList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lendList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lendListMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(lendList);
 
         jPanel3.add(jScrollPane6);
@@ -125,7 +136,7 @@ public final class BorrowUI extends javax.swing.JFrame {
                 .addComponent(pinjamBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +155,7 @@ public final class BorrowUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -202,20 +213,43 @@ public final class BorrowUI extends javax.swing.JFrame {
     }//GEN-LAST:event_exitBtnActionPerformed
 
     
+    private void lendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lendListMouseClicked
+        
+    }//GEN-LAST:event_lendListMouseClicked
+
+    private void bukuTersediaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bukuTersediaMouseClicked
+        int i = bukuTersedia.getSelectedRow();
+        if (i == -1) {
+            return;
+        }
+        String judul = (String) bukuTersedia.getValueAt(i, 0);
+        try {
+            DB.Book.lendBook(judul);
+        } catch (SQLException ex) {
+            Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bukuTersediaMouseClicked
+
+    
     public void getRefreshBooks() throws SQLException {
         String[] columnNames = {"Judul Buku", "Qty"};
         dtm = new DefaultTableModel(columnNames, 0);
-        List<String> list = DB.Book.getBookList(false);
-        String judul, qty;
-        String[] array = new String[list.size()];
-        list.toArray(array);
+        List<String> bukuDB = DB.Book.getBookList(false, false);
+        List<String> list = DB.Book.getBookList(false, true);
         
+        String judul, qty;
+        String[] array = new String[bukuDB.size()];
+        bukuDB.toArray(array);
+        Integer number;
+                
         for(int i = 0; i < array.length; i += 2) {
             judul = array[i];
             qty = array[i + 1];
-
-            String[] data = { judul, qty };
-            dtm.addRow(data);
+            number = Integer.valueOf(qty);
+            if (number > 0) {
+                String[] data = { judul, qty };
+                dtm.addRow(data);
+            }
         }
         bukuTersedia.setModel(dtm);
     }

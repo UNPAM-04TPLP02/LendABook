@@ -244,7 +244,7 @@ public class EditUI extends javax.swing.JFrame {
     private void refreshTableBuku() throws SQLException {
         String[] columnNames = {"Book ID", "Judul Buku", "Penulis", "Penerbit", "Tahun", "Qty"};
         dtm = new DefaultTableModel(columnNames, 0);
-        List<String> list = DB.Book.getBookList(true);
+        List<String> list = DB.Book.getBookList(true, false);
         String id, judul, writter, pub, year, qty;
         String[] array = new String[list.size()];
         list.toArray(array);
@@ -256,7 +256,6 @@ public class EditUI extends javax.swing.JFrame {
             pub = array[i + 3];
             year = array[i + 4];
             qty = array[i + 5];
-
             String[] data = {id, judul, writter, pub, year, qty};
             dtm.addRow(data);
         }

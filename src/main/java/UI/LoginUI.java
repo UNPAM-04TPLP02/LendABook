@@ -64,11 +64,6 @@ public class LoginUI extends javax.swing.JFrame {
         });
 
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
-        roleComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roleComboBoxActionPerformed(evt);
-            }
-        });
 
         loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -85,8 +80,6 @@ public class LoginUI extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Role");
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\SEMESTER 4\\PEMROGRAMAN 1\\netbeans\\uas1\\LendABook\\src\\resources\\Logov1x300.png")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,7 +120,7 @@ public class LoginUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(189, 189, 189)
                         .addComponent(jLabel3)
-                        .addContainerGap(167, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,16 +175,15 @@ public class LoginUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_usrnameInputActionPerformed
 
-    
+
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         String role = String.valueOf(roleComboBox.getSelectedItem());
-        
         try {
             if (DB.User.loginAccount(usrnameInput.getText(), passwdInput.getText(), role))
                 if (!"".equals(usrnameInput.getText()) && !"".equals(passwdInput.getText())) {
+                    DB.User.setUserName(usrnameInput.getText());
                     if ("admin".equals(role)) {
                         editUI.setVisible(true);
-
                     }
                     else if ("user".equals(role))
                         borrowUI.setVisible(true);
@@ -201,7 +193,6 @@ public class LoginUI extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_loginBtnActionPerformed
 
     
@@ -213,11 +204,6 @@ public class LoginUI extends javax.swing.JFrame {
             Logger.getLogger(LoginUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_createAccActionPerformed
-
-    
-    private void roleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roleComboBoxActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,6 +1,9 @@
 import com.formdev.flatlaf.FlatDarkLaf;
 import UI.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class Main extends javax.swing.JFrame {
@@ -27,12 +30,15 @@ public class Main extends javax.swing.JFrame {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    public static void main(String args[]) throws SQLException {
+    public static void main(String args[]) throws SQLException, IOException {
         
         FlatDarkLaf.setup(); //Dark Theme
+
         LoginUI login = new LoginUI();
         EditUI editUI = new EditUI();
         BorrowUI borrowUI = new BorrowUI();
+        
+        login.setIconImage(ImageIO.read(new File("src/resources/Logov1x300.png")));
         
         login.setDefaultCloseOperation(LoginUI.EXIT_ON_CLOSE);
         editUI.setDefaultCloseOperation(EditUI.EXIT_ON_CLOSE);
