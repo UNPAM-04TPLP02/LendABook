@@ -139,6 +139,7 @@ public class DB {
                 stmt.executeQuery(
                         "UPDATE user_account SET qty = qty + 1 " + " WHERE username = '" + username + "';");
                     JOptionPane.showMessageDialog(null, "Berhasil meminjam buku");
+                    
             } catch(SQLException ex) {
                 
             }

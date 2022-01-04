@@ -6,6 +6,7 @@ import Database.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,8 +32,8 @@ public final class BorrowUI extends javax.swing.JFrame {
         bukuTersedia = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        lendList = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        bukuDipinjam = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         refreshBtn = new javax.swing.JButton();
         pinjamBtn = new javax.swing.JButton();
@@ -85,22 +86,52 @@ public final class BorrowUI extends javax.swing.JFrame {
 
         jSplitPane2.setRightComponent(jPanel1);
 
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel5.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Buku yang ingin dipinjam");
+        jLabel5.setText("Buku yang dipinjam");
         jPanel3.add(jLabel5);
 
-        lendList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lendList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lendListMouseClicked(evt);
+        bukuDipinjam.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Judul Buku", "Qty"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(lendList);
+        jScrollPane1.setViewportView(bukuDipinjam);
 
-        jPanel3.add(jScrollPane6);
+        jPanel3.add(jScrollPane1);
 
         jSplitPane2.setLeftComponent(jPanel3);
 
@@ -191,11 +222,17 @@ public final class BorrowUI extends javax.swing.JFrame {
 
     
     private void pinjamBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinjamBtnActionPerformed
+        int ok = JOptionPane.showConfirmDialog(null, 
+                "Apakah anda yakin ingin meminjam buku?",
+                "Konfirmasi",JOptionPane.YES_NO_OPTION);
+        if (ok != 0)
+            return; 
         try {
             int column = 0;
             int row = bukuTersedia.getSelectedRow();
             String value = bukuTersedia.getModel().getValueAt(row, column).toString();
             DB.Book.lendBook(value);
+            getRefreshBooks();
             JOptionPane.showMessageDialog(null, "Buku berhasil dipinjam");
         } catch (SQLException ex) {
             Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -213,10 +250,6 @@ public final class BorrowUI extends javax.swing.JFrame {
     }//GEN-LAST:event_exitBtnActionPerformed
 
     
-    private void lendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lendListMouseClicked
-        
-    }//GEN-LAST:event_lendListMouseClicked
-
     private void bukuTersediaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bukuTersediaMouseClicked
         int i = bukuTersedia.getSelectedRow();
         if (i == -1) {
@@ -235,19 +268,32 @@ public final class BorrowUI extends javax.swing.JFrame {
         String[] columnNames = {"Judul Buku", "Qty"};
         dtm = new DefaultTableModel(columnNames, 0);
         List<String> bukuDB = DB.Book.getBookList(false, false);
-        List<String> list = DB.Book.getBookList(false, true);
+        List<String> bukuUser = DB.Book.getBookList(false, true);
         
-        String judul, qty;
-        String[] array = new String[bukuDB.size()];
-        bukuDB.toArray(array);
-        Integer number;
-                
-        for(int i = 0; i < array.length; i += 2) {
-            judul = array[i];
-            qty = array[i + 1];
-            number = Integer.valueOf(qty);
-            if (number > 0) {
-                String[] data = { judul, qty };
+        String judul1, judul2, qty1, qty2;
+        String[] arrayDb = new String[bukuDB.size()];
+        String[] arrayUser = new String[bukuUser.size()];
+        bukuUser.toArray(arrayUser);
+        bukuDB.toArray(arrayDb);
+        int number1, number2;
+        
+        for(int i = 0; i < arrayUser.length; i += 2) {
+            judul2 = arrayUser[i];
+            qty2 = arrayUser[i + 1];
+            number2 = Integer.valueOf(qty2);
+            if (number2 > 0) {
+                String[] data = { judul2, qty2 };
+                dtm.addRow(data);
+            }
+        }
+        bukuDipinjam.setModel(dtm);
+        
+        for(int i = 0; i < arrayDb.length; i += 2) {
+            judul1 = arrayDb[i];
+            qty1 = arrayDb[i + 1];
+            number1 = Integer.valueOf(qty1);
+            if (number1 > 0) {
+                String[] data = { judul1, qty1 };
                 dtm.addRow(data);
             }
         }
@@ -256,6 +302,7 @@ public final class BorrowUI extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable bukuDipinjam;
     private javax.swing.JTable bukuTersedia;
     private javax.swing.JButton exitBtn;
     private javax.swing.JLabel jLabel3;
@@ -263,10 +310,9 @@ public final class BorrowUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JList<String> lendList;
     private javax.swing.JButton pinjamBtn;
     private javax.swing.JButton refreshBtn;
     // End of variables declaration//GEN-END:variables
