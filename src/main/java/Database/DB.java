@@ -1,11 +1,14 @@
 package Database;
 
+import UI.EditUI;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DB {
 
@@ -102,7 +105,6 @@ public class DB {
             while (rs.next()) {
                 list.add(rs.getString("username"));
                 if (list.contains(userName)) {
-                    System.out.println("Berhasil");
                     return true;
                 }
             }
@@ -143,12 +145,26 @@ public class DB {
         
         public static int getBookID(String bookName) throws SQLException {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT book_id FROM book_table WHERE judul_buku = '"
-                    + bookName +"';");
-            int i = rs.getInt(bookName);
+            rs = stmt.executeQuery("SELECT book_id FROM book_table WHERE judul_buku = '" + bookName + "';");
+            int i = 0;
+            while (rs.next()) {
+                i = rs.getInt("book_id");
+                
+                break;
+            }
             return i;            
         }
         
+        
+        public static void setBookQty(String bookName, int qty) throws SQLException {
+            stmt = con.createStatement();
+            try {
+                stmt.executeUpdate("UPDATE book_table SET qty = qty + " + qty + " WHERE judul_buku = '" + bookName + "';");
+                JOptionPane.showMessageDialog(null, "Berhasil menyimpan data");
+            } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Perintah Salah:" + e);
+            }
+        }   
         
         public static int getBookQty(int book_id) throws SQLException {
             int qty;
