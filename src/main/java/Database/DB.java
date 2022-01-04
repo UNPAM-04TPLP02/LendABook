@@ -3,12 +3,9 @@ package Database;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-import java.util.Map;
 
 public class DB {
 
