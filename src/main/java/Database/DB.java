@@ -134,19 +134,13 @@ public class DB {
         
         public static void lendBook(String book) throws SQLException {
             stmt = con.createStatement();
-            System.out.println(book);
+            int id = getBookID(book);
+            System.out.println(id);
             //UPDATE book_table SET qty = qty + " + qty + " WHERE judul_buku = '" + bookName + "';"
-            try {
-                stmt.executeQuery(
-                        "UPDATE book_table SET qty = qty - 1 WHERE judul_buku = '" + book + "';");
-                System.out.println("WOW " + book);
-                stmt.executeQuery(
-                        "UPDATE user_account SET qty = qty + 1 " + " WHERE username = '" + username + "';");
-                    JOptionPane.showMessageDialog(null, "Berhasil meminjam buku");
-                    
-            } catch(SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Gagal meminjam buku");
-            }
+            stmt.executeUpdate("UPDATE book_table SET qty = qty - 1 WHERE judul_buku = '" + book + "';");
+            stmt.executeUpdate("UPDATE user_account SET qty = qty + 1, book_id = " + id + " WHERE username = '" + username + "';");
+            JOptionPane.showMessageDialog(null, "Berhasil meminjam buku");
+
         }
         
         

@@ -6,7 +6,6 @@ import Database.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -76,11 +75,6 @@ public final class BorrowUI extends javax.swing.JFrame {
                 "Judul Buku", "Qty"
             }
         ));
-        bukuTersedia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bukuTersediaMouseClicked(evt);
-            }
-        });
         jScrollPane4.setViewportView(bukuTersedia);
 
         jPanel1.add(jScrollPane4);
@@ -226,20 +220,21 @@ public final class BorrowUI extends javax.swing.JFrame {
         int ok = JOptionPane.showConfirmDialog(null, 
                 "Apakah anda yakin ingin meminjam buku?",
                 "Konfirmasi",JOptionPane.YES_NO_OPTION);
-        if (ok != 0)
+        if (ok != 0) {
+            System.out.println("ERR");
             return; 
+        }
         try {
             int column = 0;
             int row = bukuTersedia.getSelectedRow();
-            String value = bukuTersedia.getModel().getValueAt(row, column).toString();
-            System.out.println("VALUE " + value);
-            DB.Book.lendBook(value);
+            String judul = bukuTersedia.getModel().getValueAt(row, column).toString();
+            DB.Book.lendBook(judul);
+            setUserBook(judul, "1");
             refreshBookList();
             JOptionPane.showMessageDialog(null, "Buku berhasil dipinjam");
         } catch (SQLException ex) {
             Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_pinjamBtnActionPerformed
 
     
@@ -252,19 +247,14 @@ public final class BorrowUI extends javax.swing.JFrame {
     }//GEN-LAST:event_exitBtnActionPerformed
 
     
-    private void bukuTersediaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bukuTersediaMouseClicked
-//        int i = bukuTersedia.getSelectedRow();
-//        if (i == -1) {
-//            return;
-//        }
-//        String judul = (String) bukuTersedia.getValueAt(i, 0);
-//        try {
-//            DB.Book.lendBook(judul);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(BorrowUI.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_bukuTersediaMouseClicked
-
+    public void setUserBook(String judul, String qty) {
+        // Ini hanya untuk visualisasi saja agar terkesan buku itu masuk ke inventory user
+        // Karena kurang waktu pengerjaan
+        String[] data = { judul, qty };
+        userModel.addRow(data);
+        bukuDipinjam.setModel(userModel);
+    }
+    
     
     public void refreshBookList() throws SQLException {
         String[] columnNames = {"Judul Buku", "Qty"};
@@ -279,23 +269,26 @@ public final class BorrowUI extends javax.swing.JFrame {
         bukuUser.toArray(arrayUser);
         bukuDB.toArray(arrayDb);
         int number1, number2;
-        System.out.println(bukuUser);
         
-        if (arrayUser != null) {
-            for(int i = 0; i < arrayUser.length; i += 2) {
-                judul2 = arrayUser[i];
-                qty2 = arrayUser[i + 1];
-                number2 = Integer.valueOf(qty2);
-                if (number2 > 0) {
-                    String[] data = { judul2, qty2 };
-                    userModel.addRow(data);
-                }
-            }
-        } else {
-            String[] data = { "0", "0" };
-            userModel.addRow(data);
-        }
-        bukuDipinjam.setModel(userModel);
+        
+        // TODO BELUM BISA UPDATE
+//        if (arrayUser != null) {
+//            for(int i = 0; i < arrayUser.length; i += 2) {
+//                judul2 = arrayUser[i];
+//                qty2 = arrayUser[i + 1];
+//                number2 = Integer.valueOf(qty2);
+//                if (number2 > 0) {
+//                    String[] data = { judul2, qty2 };
+//                    
+//                    userModel.addRow(data);
+//                }
+//            }
+//        } else {
+//            System.out.println("Kosong");
+//            String[] data = { "0", "0" };
+//            userModel.addRow(data);
+//        }
+        
         
         for(int i = 0; i < arrayDb.length; i += 2) {
             judul1 = arrayDb[i];
